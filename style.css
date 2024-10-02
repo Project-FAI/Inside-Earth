@@ -1,0 +1,15 @@
+:root {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+body {
+    background-color: #060716;
+    color: white
+}
+
+h1 {
+    font-weight: 400;
+}
