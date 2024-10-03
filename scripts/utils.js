@@ -1,3 +1,5 @@
+import * as THREE from 'three'
+
 function uv_to_geo_coordinates(uvx, uvy) {
     lat = uvy * 180 - 90;
     long = uvx * 360 - 180;

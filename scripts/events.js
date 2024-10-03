@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 const pointer = new THREE.Vector2( 0, 0 );
-let has_pointer_moved = true;
 
 function init_resize_event(renderer, camera) {
     window.addEventListener("resize", (event)=>{
@@ -11,12 +10,12 @@ function init_resize_event(renderer, camera) {
     })
 }
 
-window.addEventListener("pointermove", (event)=>{
-    pointer.x =  (event.clientX / window.innerWidth) * 2 - 1;
-    pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    
-    has_pointer_moved = true;
+function init_pointer_move_event(on_move) {
+    window.addEventListener("pointermove", (event)=>{
+        pointer.x =  (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        on_move(event);
+    })
+} 
 
-})
-
-export { init_resize_event, pointer, has_pointer_moved };
+export { init_resize_event, init_pointer_move_event, pointer};
