@@ -7,6 +7,10 @@ import * as utils from './utils.js'
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 0.1, 1000 );
 const light = new THREE.DirectionalLight( 0xffffff, 1 );
+
+const main_page = document.querySelector('.main-page');
+const landing_page = document.querySelector('.landing-page');
+
 let has_pointer_moved = false;
 
 light.position.set( 1, 1, 1 ).normalize();
@@ -74,8 +78,10 @@ function animate() {
     renderer.render( scene, camera );
 }
 
-renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
+
+//renderer.setAnimationLoop( animate );
+
+main_page.appendChild( renderer.domElement );
 
 events.init_resize_event(renderer, camera);
 events.init_pointer_move_event((e)=>{
