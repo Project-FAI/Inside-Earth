@@ -1,0 +1,27 @@
+:root {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+html {
+    height: 100%;
+    min-height: 100%;
+}
+body {
+    color: white;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    margin: 0;
+}
+
+h1 {
+    font-weight: 400;
+    text-align: right;
+}
+
+.main-page {
+    visibility: hidden;
+}
