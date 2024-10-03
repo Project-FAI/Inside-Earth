@@ -14,6 +14,7 @@ light.position.set( 1, 1, 1 ).normalize();
 let theta = 0;
 
 let earth;
+let earth_mesh;
 
 scene.add( light );
 
@@ -26,6 +27,7 @@ loadScene('assets/scene-v1.glb').then(gltf=>{
     earth.position.x = -70;
     earth.position.y = -80
 
+    earth_mesh = earth.children[0].children[0].children[0].children[0];
 	scene.add( gltf.scene );
 
 });
@@ -36,23 +38,40 @@ const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 
 camera.position.z = 1000;
-function animate() {
-	renderer.render( scene, camera );
-    if (earth) {        
-        earth.rotation.z += 0.0005;
-    }
 
+const clock = new THREE.Clock()
+let previousTime = 0
+
+function animate() {
+
+    const elapsedTime = clock.getElapsedTime()
+    const deltaTime = elapsedTime - previousTime
+    previousTime = elapsedTime
+
+    if (earth) {        
+        earth.rotation.z += 0.08 * deltaTime;
+    }
+    
     if (has_pointer_moved) {
         let hit = utils.raycast_first_hit(scene, new THREE.Raycaster(), camera, events.pointer);
         
         if (hit) {
             // cursor becomes pointer
             document.body.style.cursor = "pointer";
+
+            console.log(earth_mesh);
+            earth_mesh.material.color.set(0xaaaaaa);
+
+            
         } else {
-            document.body.style.cursor = "default";
+            // remove cursor property 
+            document.body.style.cursor = null;
+            earth_mesh?.material.color.set(0xffffff);
         }
         has_pointer_moved = false;
     }
+
+    renderer.render( scene, camera );
 }
 
 renderer.setAnimationLoop( animate );
