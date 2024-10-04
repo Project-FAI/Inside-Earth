@@ -50,6 +50,7 @@ function init() {
     
         scene.add( gltf.scene );
         
+        renderer.domElement.style.opacity = 1;
     });
     
 }
