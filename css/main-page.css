@@ -21,6 +21,16 @@ canvas {
 
 .left-side-bar {
     flex-grow: 1;
+    z-index: -4;
+}
+
+.left-side-bar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: -4;
+    filter: brightness(0.4);*/
 }
 
 .right-side-bar {

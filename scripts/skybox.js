@@ -27,8 +27,13 @@ function createMaterialArray(filename) {
 
 function skybox_init() {
     const materialArray = createMaterialArray("");
-    const skyboxGeo = new THREE.BoxGeometry(500, 500, 500);
+    const skyboxGeo = new THREE.BoxGeometry(100, 100, 100);
     const skybox = new THREE.Mesh(skyboxGeo, materialArray);
+    skybox.rotation.x = Math.PI / 2;
+    //darker
+    skybox.material.forEach(m => {
+        m.color.setRGB(0.1, 0.1, 0.1);
+    });
     return skybox;
 
 }

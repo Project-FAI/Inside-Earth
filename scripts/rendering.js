@@ -4,10 +4,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as TWEEN from './tween.js';
 import { skybox_init } from './skybox.js';
 
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 const loader = new GLTFLoader();
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 0.1, 10000 );
+const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 0.1, 500000 );
 
 const light = new THREE.DirectionalLight( 0xffffff, 1 );
 
@@ -49,9 +49,7 @@ function init() {
         // models.earth.position.y = -80
     
         scene.add( gltf.scene );
-        const skybox = skybox_init();
-        skybox.position.z = -1000;
-        scene.add( skybox )
+        
     });
     
 }
