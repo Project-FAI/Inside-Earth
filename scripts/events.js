@@ -12,8 +12,8 @@ function init_resize_event(renderer, camera) {
 
 function init_pointer_move_event(on_move) {
     window.addEventListener("pointermove", (event)=>{
-        pointer.x =  (event.clientX / window.innerWidth) * 2 - 1;
-        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        pointer.x =  event.clientX
+        pointer.y = event.clientY
         on_move(event);
     })
 } 

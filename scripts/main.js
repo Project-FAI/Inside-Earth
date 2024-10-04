@@ -14,10 +14,14 @@ const play_button = document.querySelector('.play-button');
 main_page.appendChild( renderer.renderer.domElement );
 
 events.init_resize_event(renderer.renderer, renderer.camera);
+events.init_pointer_move_event(renderer.on_pointer_move);
 
 play_button.addEventListener('click', (event)=>{
     landing_page.style.opacity = 0;
-    
+    setTimeout(() => {
+        landing_page.style.display = 'none';
+    }, 1000);
+
     main_page.style.visibility = 'visible';
     renderer.init();
     renderer.run();

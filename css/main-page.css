@@ -16,7 +16,6 @@ canvas {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1;
     
     opacity: 0;
     transition-duration: 0.5s;
@@ -36,13 +35,23 @@ canvas {
     height: 100%;
     object-fit: cover;
     display: block;
-    z-index: -4;
-    filter: brightness(0.4);*/
+    z-index: -5;
+    filter: brightness(0.4);
 }
 
 .right-side-bar {
     padding: 1rem;
     background-color: #00000060;
+    justify-content: space-between;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.footer {
+    font-size: 0.7rem;
 }
 
 .ul-links {
@@ -62,4 +71,38 @@ canvas {
     color: white;
     margin: 1rem;
     transition-duration: 0.1s;
+}
+
+.popup-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    display: none;
+}
+
+.popup-header {
+    font-size: 1.1rem;
+    font-weight: 500;
+    background-color: rgba(255, 175, 25, 0.8);
+    color: black;
+    padding: 0.5rem;
+
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+.popup-content {
+    padding: 0.5rem;
+    color: white;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+
+    background-color: rgba(5, 5, 5, 0.55);
+
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }

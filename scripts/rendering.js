@@ -2,12 +2,13 @@ import * as THREE from 'three';
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as TWEEN from './tween.js';
-import { skybox_init } from './skybox.js';
+import * as earth_hover from './earth_hover.js'
 
 const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 const loader = new GLTFLoader();
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 0.1, 500000 );
+const raycaster = new THREE.Raycaster();
 
 const light = new THREE.DirectionalLight( 0xffffff, 1 );
 
@@ -16,10 +17,14 @@ const models = {
     earth: null,
 }
 
+let check_for_hover = false;
+let hasPointerMoved = false;
 
 let previousTime = 0;
 
 function init() {
+    earth_hover.init(renderer.domElement, scene, raycaster, camera);
+    
     renderer.setSize( window.innerWidth, window.innerHeight );
     
     light.position.set( 1, 1, 1 ).normalize();
@@ -27,7 +32,9 @@ function init() {
 
     camera.position.z = 1000;
 
+    
     loadScene('assets/scene-v1.glb').then(gltf=>{
+        console.log("earth");
         models.earth = gltf.scene.children[0];
         models.earth.position.set(0, 0, -4000);
 
@@ -43,6 +50,11 @@ function init() {
             TWEEN.tween(-4000, 0, 5000, (z)=>{
                 models.earth.position.z = z;
             }, clock.getElapsedTime());
+
+            setTimeout(() => {
+                check_for_hover = true;
+            }, 5000);
+
         }, 3000);
 
         // models.earth.position.x = -70;
@@ -70,12 +82,20 @@ function update() {
         models.earth.rotation.z += 0.1 * deltaTime;
     }
 
+    if (check_for_hover) {
+        earth_hover.check_hover(scene, raycaster, camera);
+    }
+
     console.log();
     TWEEN.update(elapsedTime);
+}
+
+function on_pointer_move(event) {
+    hasPointerMoved = true;
 }
 
 function run() {
     renderer.setAnimationLoop(update);
 }
 
-export { init, loadScene, renderer, scene, camera, light, run};
+export { init, loadScene, renderer, scene, camera, light, run, on_pointer_move};
