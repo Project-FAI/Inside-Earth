@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as TWEEN from './tween.js';
+import { skybox_init } from './skybox.js';
 
 const renderer = new THREE.WebGLRenderer({antialias: true});
 const loader = new GLTFLoader();
@@ -31,15 +32,15 @@ function init() {
         models.earth.position.set(0, 0, -4000);
 
         setTimeout(() => {
-            TWEEN.tween(0, -70, 10000, (x)=>{
+            TWEEN.tween(0, -70, 5000, (x)=>{
                 models.earth.position.x = x;
             }, clock.getElapsedTime());
     
-            TWEEN.tween(0, -80, 10000, (y)=>{
+            TWEEN.tween(0, -80, 5000, (y)=>{
                 models.earth.position.y = y;
             }, clock.getElapsedTime());
     
-            TWEEN.tween(-4000, 0, 10000, (z)=>{
+            TWEEN.tween(-4000, 0, 5000, (z)=>{
                 models.earth.position.z = z;
             }, clock.getElapsedTime());
         }, 3000);
@@ -48,7 +49,9 @@ function init() {
         // models.earth.position.y = -80
     
         scene.add( gltf.scene );
-    
+        const skybox = skybox_init();
+        skybox.position.z = -1000;
+        scene.add( skybox )
     });
     
 }
