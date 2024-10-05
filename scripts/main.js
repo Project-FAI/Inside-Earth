@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 
-import { loadScene } from './rendering.js';
 import { identify_surface } from './surface_identification.js';
 import * as events from './events.js';
 import * as utils from './utils.js'

@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import * as TWEEN from './tween.js';
 import * as earth_hover from './earth_hover.js'
-
-const progress_bar = document.querySelector('.progress-bar');
+import { start_zoom_in, load_earth }  from './earth.js'
+import * as globe_marker from './globe_marker.js'
+import * as TWEEN from './tween.js'
 
 const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 const loader = new GLTFLoader();
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 0.1, 500000 );
+const camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 100, 500000 );
 const raycaster = new THREE.Raycaster();
 
 const light = new THREE.DirectionalLight( 0xffffff, 1 );
@@ -17,6 +17,7 @@ const light = new THREE.DirectionalLight( 0xffffff, 1 );
 const clock = new THREE.Clock();
 const models = {
     earth: null,
+    sphere : null
 }
 
 let check_for_hover = false;
@@ -25,57 +26,40 @@ let hasPointerMoved = false;
 let previousTime = 0;
 
 function init() {
-    earth_hover.init(renderer.domElement, scene, raycaster, camera);
     
     renderer.setSize( window.innerWidth, window.innerHeight );
     
     light.position.set( 1, 1, 1 ).normalize();
     scene.add( light );
-
+    
     camera.position.z = 1000;
-
-    
-    loadScene('assets/scene-v1.glb').then(gltf=>{
-        progress_bar.style.display = "none";
-        console.log("earth");
-        models.earth = gltf.scene.children[0];
-        models.earth.position.set(0, 0, -4000);
-
-        setTimeout(() => {
-            TWEEN.tween(0, -70, 5000, (x)=>{
-                models.earth.position.x = x;
-            }, clock.getElapsedTime());
-    
-            TWEEN.tween(0, -80, 5000, (y)=>{
-                models.earth.position.y = y;
-            }, clock.getElapsedTime());
-    
-            TWEEN.tween(-4000, 0, 5000, (z)=>{
-                models.earth.position.z = z;
-            }, clock.getElapsedTime());
-
-            setTimeout(() => {
-                check_for_hover = true;
-            }, 5000);
-
-        }, 3000);
-
-        // models.earth.position.x = -70;
-        // models.earth.position.y = -80
-    
-        scene.add( gltf.scene );
         
+    load_earth().then((earth)=>{
+        scene.add(earth);
+        models.earth = earth;
+        earth.position.set(0, 0, -4000);
+
+        console.log(models.earth);
+        
+        models.earth.rotation.set(0, 0, 0);
+        models.earth.scale.set(1, 1, 1);
+        models.earth.children[0].scale.set(100, 100, 100);
+        models.earth.children[0].rotation.set(-Math.PI / 2, 0, 0);
+        
+        earth_hover.init(renderer.domElement, scene, raycaster, camera, models.earth.children[0]);
+
+        setTimeout(()=>{
+            start_zoom_in(clock.getElapsedTime(), 5);    
+        }, 3000)
+        setTimeout(() => {
+            check_for_hover = true;
+        }, 8000);
+
         renderer.domElement.style.opacity = 1;
     });
-    
-}
 
-async function loadScene(path) {
-    return await loader.loadAsync(path, (progress)=>{
-        console.log(progress.loaded / progress.total * 100);
         
-        progress_bar.style.width =  (progress.loaded / progress.total * 100) + "%";
-    });
+    
 }
 
 function update() {
@@ -86,7 +70,7 @@ function update() {
     renderer.render( scene, camera );
 
     if (models.earth) {
-        models.earth.rotation.z += 0.1 * deltaTime;
+        models.earth.rotation.y += 0.1 * deltaTime;
     }
 
     if (check_for_hover) {
@@ -94,7 +78,8 @@ function update() {
     }
 
     console.log();
-    TWEEN.update(elapsedTime);
+    // TWEEN.update(elapsedTime);
+    TWEEN.Tween.update(elapsedTime);
 }
 
 function on_pointer_move(event) {
@@ -105,4 +90,4 @@ function run() {
     renderer.setAnimationLoop(update);
 }
 
-export { init, loadScene, renderer, scene, camera, light, run, on_pointer_move};
+export { init, renderer, scene, camera, light, run, on_pointer_move};

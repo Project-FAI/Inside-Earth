@@ -10,14 +10,17 @@ const data = {
     canvas: null,
     scene: null,
     raycaster: null,
-    camera: null
+    camera: null,
+    earth_mesh: null
 }
 
-function init(canvas, scene, raycaster, camera) {
+function init(canvas, scene, raycaster, camera, earth_mesh) {
     data.canvas = canvas;
     data.scene = scene;
     data.raycaster = raycaster;
     data.camera = camera;
+    data.earth_mesh = earth_mesh;
+    
 }
 
 function display_popup(title, text) {
@@ -29,8 +32,6 @@ function display_popup(title, text) {
     // top should subtract the height of the popup
 
     popup.style.top = pointer.y - popup.clientHeight - 2 + "px";
-
-    console.log(pointer.x);
     
 
     popup.style.display = "block";
@@ -48,8 +49,8 @@ function check_hover() {
     const y = -pointer.y / window.innerHeight * 2 + 1;
     
     let hit = raycast_first_hit(data.scene, data.raycaster, data.camera, {x, y});
-    if (hit) {
-
+    if (hit && hit.object == data.earth_mesh) {
+        
         data.canvas.style.cursor = "pointer";
 
         const surface =  identify_surface(hit.uv.x, hit.uv.y) 

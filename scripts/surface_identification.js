@@ -16,6 +16,7 @@ function identify_surface(uvx, uvy) {
     const y = Math.floor((1- uvy) * water_tex.height);
 
     
+    
     const pix =  water_tex_ctx.getImageData(x, y, 1, 1).data[0];
 
     if (pix == 255) {
