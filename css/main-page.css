@@ -57,6 +57,7 @@ canvas {
 
 .progress-bar {
     height: 5px;
+    width: 0%;
     background-color: rgba(255, 175, 25, 1);
 }
 
