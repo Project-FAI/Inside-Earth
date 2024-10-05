@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquakes</title>
+    <link rel="stylesheet" href="./css/articles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />  
+
+    <style>
+        .background {
+            filter: brightness(0.4);
+        }
+
+        .right-side {
+            padding-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 1rem;
+            row-gap: 1rem;
+        }
+        
+        .remote {
+            width: min(100%, 500px);
+        }
+
+        .right-side img, .right-side a {
+            /* width: 100%; */
+            width: min(100%, 300px);
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EARTHQUAKES</h1>
+        <a href="/">Home</a>
+    </header>
+
+    <main>
+        <div class="left-side">
+            <p>Earthquakes, as sudden and powerful releases of energy beneath the Earth's
+                surface, have a profound impact on the planet's interconnected systems. 
+                They can disrupt the delicate balance of air, water, land, and life. 
+                The shaking caused by earthquakes can trigger landslides, liquefaction, 
+                and tsunamis, altering the landscape and leading to erosion. Additionally, 
+                earthquakes can disrupt underground water sources, contaminate drinking water, 
+                and cause damage to infrastructure. In the atmosphere, the energy released by 
+                earthquakes can create seismic waves that travel through the air, potentially 
+                affecting weather patterns and atmospheric circulation.
+    
+            </p>
+          </div>
+          <div class="right-side">
+            <a title="Radar data reveals how earthquakes move land" href="https://appliedsciences.nasa.gov/our-impact/story/radar-data-reveals-how-earthquakes-move-land"><img class="img-map" src="./assets/earthquakes/earthqk_ground_displacement.jpeg" alt="Ground Displacement caused by earthquakes"></a> 
+            <img class="remote" src="./assets/earthquakes/remote_sensing.jpg" alt="">
+            <img  src="./assets/earthquakes/usgs.png" alt="">
+            <img src="./assets/earthquakes/map.png" alt="">
+        </div>
+        
+        <img src="./assets/earthquakes/earthquake.webp" class="background" alt="">      
+    </main>
+    </body>
+</html>
