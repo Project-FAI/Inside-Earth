@@ -26,3 +26,9 @@ h1 {
     visibility: hidden;
 }
 
+
+a {
+    text-decoration: none;
+    color: white;
+    transition-duration: 0.1s;
+}

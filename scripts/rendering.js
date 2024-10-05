@@ -4,6 +4,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as TWEEN from './tween.js';
 import * as earth_hover from './earth_hover.js'
 
+const progress_bar = document.querySelector('.progress-bar');
+
 const renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 const loader = new GLTFLoader();
 const scene = new THREE.Scene();
@@ -34,6 +36,7 @@ function init() {
 
     
     loadScene('assets/scene-v1.glb').then(gltf=>{
+        progress_bar.style.display = "none";
         console.log("earth");
         models.earth = gltf.scene.children[0];
         models.earth.position.set(0, 0, -4000);
@@ -68,7 +71,11 @@ function init() {
 }
 
 async function loadScene(path) {
-    return await loader.loadAsync(path);
+    return await loader.loadAsync(path, (progress)=>{
+        console.log(progress.loaded / progress.total * 100);
+        
+        progress_bar.style.width =  (progress.loaded / progress.total * 100) + "%";
+    });
 }
 
 function update() {
