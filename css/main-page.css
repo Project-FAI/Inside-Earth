@@ -55,6 +55,46 @@ canvas {
     height: 100%;
 }
 
+.uaepop {
+    width: 300px;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.uaepop-title {
+    background-color: rgba(120, 0, 0, 0.75);
+    color: white;
+    padding: 0.5rem;
+
+
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+
+    display: flex;
+    gap: 0.5rem;
+}
+
+.uaepop-title svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.uaepop-content {
+    background-color: rgba(5, 5, 5, 0.55);
+
+    color: white;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+
+
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+
 .progress-bar {
     height: 5px;
     width: 0%;
